@@ -3,10 +3,44 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Zomato Sauce</title>
-	<link rel="stylesheet" href="public/styles/style.css">
+	<!-- <link rel="stylesheet" href="public/styles/style.css"> -->
+	<style>
+		body{
+			diplay:flex;
+			justify-content: center;
+			center-items:center;
+			text-align: center;
+		}
+		.main{
+			diplay:flex;
+			justify-content: center;
+			center-items:center;
+			text-align: center;
+		}
+	</style>
 </head>
 <body>
-	<h1>lalalalala</h1>
+	<header>
+		<h1>Zomato</h1>
+	</header>
 
+	<main> <!-- added from, input with autocomplete on  -->
+		<form>
+		<input id="location" type="text" size="50" placeholder="Enter Location" autocomplete="on" runat="server"/>
+	</form>
+
+		
+	</main>
+	
+	<footer>
+		
+	</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!-- jquery added -->
+<script src="http://maps.googleapis.com/maps/api/js?libraries=places" type="text/javascript"></script>
+<!-- added google API/ places library without key-->
+<script src="dev/scripts/script.js"></script>
+<!-- linked to out scritp.js file -->
 </body>
 </html>
