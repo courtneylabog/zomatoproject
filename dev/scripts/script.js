@@ -9,7 +9,7 @@ zomatoApp.displayResults = function(a, b, c){
 	$('main').append(`<h3>Name:${a}</h3>`);
 	$('main').append(`<h3>Latitude:${b}</h3>`);
 	$('main').append(`<h3>Longitude:${c}</h3>`);
-	console.log('display results printed');
+	// console.log('display results printed');
 };
 
 zomatoApp.getUserLocation = function(){
@@ -23,7 +23,8 @@ zomatoApp.getUserLocation = function(){
         
         zomatoApp.displayResults(zomatoApp.inputLocationName, zomatoApp.inputLatitude, zomatoApp.inputLongitude); // this can be removed...it was just displaying the info
     });
-    console.log('get user location printed');
+    var a = $('#location').val();
+    console.log(a);
 };
 
 zomatoApp.init = function(){
