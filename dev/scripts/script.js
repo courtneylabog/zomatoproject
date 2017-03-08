@@ -7,18 +7,17 @@ zomatoApp.restaurantsNearby = [];
 
 //helper function that displays variables
 zomatoApp.displayResults = function(a, b, c){
-	$('main').append(`<h3>Name:${a}</h3>`);
-	$('main').append(`<h3>Latitude:${b}</h3>`);
-	$('main').append(`<h3>Longitude:${c}</h3>`);
+    $(".userInput").empty();
+	$('.userInput').append(`<h3>Name:${a}</h3>`);
+	$('.userInput').append(`<h3>Latitude:${b}</h3>`);
+	$('.userInput').append(`<h3>Longitude:${c}</h3>`);
 	console.log('display results printed');
 };
 
+
 zomatoApp.getUserLocation = function(){
     var input = $('#location')[0];
-    // google.maps.event.addDomListener(input, 'keydown', function(e) { 
-    // if (e.keyCode == 13) { 
-    //     e.preventDefault(); 
-    // } 
+
     var autocomplete = new google.maps.places.Autocomplete(input);
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
         var place = autocomplete.getPlace();
@@ -29,8 +28,36 @@ zomatoApp.getUserLocation = function(){
         zomatoApp.displayResults(zomatoApp.inputLocationName, zomatoApp.inputLatitude, zomatoApp.inputLongitude); // this can be removed...it was just displaying the info
         zomatoApp.getRestaurants(zomatoApp.inputLatitude, zomatoApp.inputLongitude);    
     });
+
+    google.maps.event.addDomListener(input, 'keydown', function(e) { 
+    if (e.keyCode == 13) { 
+        e.preventDefault(); 
+     } 
+    });
+
     console.log('get user location printed');
 };
+
+
+// zomatoApp.getUserLocation = function(){
+//     var input = $('#location')[0];
+//     google.maps.event.addDomListener(input, 'keydown', function(e) { 
+//     if (e.keyCode == 13) { 
+//         e.preventDefault(); 
+//      } 
+//     });
+//     var autocomplete = new google.maps.places.Autocomplete(input);
+//     google.maps.event.addListener(autocomplete, 'place_changed', function() {
+//         var place = autocomplete.getPlace();
+//         zomatoApp.inputLocationName = place.name;
+//         zomatoApp.inputLatitude = place.geometry.location.lat();
+//         zomatoApp.inputLongitude = place.geometry.location.lng();
+        
+//         zomatoApp.displayResults(zomatoApp.inputLocationName, zomatoApp.inputLatitude, zomatoApp.inputLongitude); // this can be removed...it was just displaying the info
+//         zomatoApp.getRestaurants(zomatoApp.inputLatitude, zomatoApp.inputLongitude);    
+//     });
+//     console.log('get user location printed');
+// };
 
 //on submit, grab input value of #location
 //pass value into geolocation api
@@ -48,7 +75,7 @@ zomatoApp.getRestaurants = function(latitude,longitude){
             lat: latitude,
             lon: longitude,
             count: 30,
-            sort: "real_distance"
+            radius: "20000"
         },
         headers: {
         "user-key": "7a5271a9bcd39c98815f81510b921ec4"
