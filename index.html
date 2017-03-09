@@ -3,21 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Zomato Sauce</title>
-	<!-- <link rel="stylesheet" href="public/styles/style.css"> -->
-	<style>
-		body{
-			diplay:flex;
-			justify-content: center;
-			center-items:center;
-			text-align: center;
-		}
-		.main{
-			diplay:flex;
-			justify-content: center;
-			center-items:center;
-			text-align: center;
-		}
-	</style>
+	<link rel="stylesheet" href="public/styles/style.css">
 </head>
 <body>
 	<header>
@@ -27,6 +13,7 @@
 	<main> <!-- added from, input with autocomplete on  -->
 	<form>
 		<input id="location" type="text" size="50" placeholder="Enter Location" autocomplete="on" runat="server"/>
+		<input type="range" min="1" max="5" id="inputRating"> <!-- added input range -->
 	</form>
 	
 	<div class="userInput">

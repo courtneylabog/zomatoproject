@@ -102,7 +102,6 @@ zomatoApp.getRestaurants = function(latitude,longitude){
         });
 }
 
-
 zomatoApp.init = function(){
 	google.maps.event.addDomListener(window, 'load', zomatoApp.getUserLocation());
 
