@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Zomato Sauce</title>
-	<!-- <link rel="stylesheet" href="public/styles/style.css"> -->
+	<link rel="stylesheet" href="public/styles/style.css">
 	<style>
 		body{
 			diplay:flex;
@@ -22,18 +22,19 @@
 <body>
 	<header>
 		<h1>Zomato Sauce</h1>
+		<form>
+			<input id="location" type="text" size="50" placeholder="Enter Location" autocomplete="on" runat="server"/>
+		</form>
+		<div class="userInput">
+		</div>
 	</header>
 
-	<main> <!-- added from, input with autocomplete on  -->
-	<form>
-		<input id="location" type="text" size="50" placeholder="Enter Location" autocomplete="on" runat="server"/>
-	</form>
-	
-	<div class="userInput">
-	</div>
-
-		
-	</main>
+	<section class="restaurantMap">
+	<!-- google map embed holding multiple markers -->
+		<div id="map_wrapper">
+		    <div id="map_canvas" class="mapping"></div>
+		</div><!--  google map embed end -->
+	</section>
 	
 	<footer>
 		

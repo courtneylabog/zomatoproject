@@ -15,7 +15,6 @@ zomatoApp.displayResults = function(a, b, c){
 	console.log('display results printed');
 };
 
-
 zomatoApp.getUserLocation = function(){
     var input = $('#location')[0];
 
