@@ -1,6 +1,6 @@
 "use strict";
 
-zomatoApp = {};
+var zomatoApp = {};
 
 zomatoApp.inputLocationName = "";
 zomatoApp.inputLatitude = "";
