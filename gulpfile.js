@@ -48,7 +48,6 @@ gulp.task('watch', function() {
 
 gulp.src('./src/*.ext')
     .pipe(plumber())
-    .pipe(coffee())
     .pipe(gulp.dest('./dist'));
 
 gulp.task('default', ['browser-sync','styles', 'scripts', 'watch']);
