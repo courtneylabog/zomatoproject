@@ -1,3 +1,31 @@
 h1 {
 	color: red;
 }
+
+body{
+	display: flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+}
+
+main{
+	display: flex;
+	flex-direciton:column;
+}
+
+form{
+	display: flex;
+	flex-direciton:column;
+	flex-wrap:wrap;
+	justify-content:center;
+}
+
+#location{
+	width:100%;
+}
+
+#inputRating{
+	margin-top:20px;
+	width:60%;
+}
