@@ -3,22 +3,33 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Zomato Sauce</title>
-	<link rel="stylesheet" href="public/styles/style.css">
+<!-- 	<link rel="stylesheet" href="public/styles/style.css"> -->
+	<style>
+		#map_wrapper {
+		    height: 400px;
+		}
+		#map_canvas {
+		    width: 100%;
+		    height: 100%;
+		}
+	</style>
 </head>
 <body>
 	<header>
 		<h1>Zomato Sauce</h1>
+		<form>
+			<input id="location" type="text" size="50" placeholder="Enter Location" autocomplete="on" runat="server"/>
+			<input type="range" min="1" max="5" id="inputRating"> <!-- added input range -->
+		</form>
+		<div class="userInput">
+		</div>
 	</header>
-	<main> <!-- added from, input with autocomplete on  -->
-	<form>
-		<input id="location" type="text" size="50" placeholder="Enter Location" autocomplete="on" runat="server"/>
-		<input type="range" min="1" max="5" id="inputRating"> <!-- added input range -->
-	</form>
-	
-	<div class="userInput">
-	</div>
-		
-	</main>
+	<section>
+		<div id="map_wrapper">
+		    <div id="map_canvas" class="mapping"></div>
+		</div>
+	</section>
+
 	<footer>
 		
 	</footer>
@@ -26,6 +37,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!-- jquery added -->
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBCqhZj9r_-ng3j6qpWgoV9BisiNw7FDoM&libraries=places" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCqhZj9r_-ng3j6qpWgoV9BisiNw7FDoM&callback=initMap"
+    async defer></script>
 <!-- added google API/ places library without key-->
 <script src="public/scripts/script.js"></script>
 <!-- linked to out scritp.js file -->

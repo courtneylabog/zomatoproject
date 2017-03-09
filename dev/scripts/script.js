@@ -114,12 +114,24 @@ zomatoApp.getRestaurants = function(latitude,longitude){
 };
 
 
-zomatoApp.makeMarkers = function (){
-        var script = document.createElement('script');
-        script.src = "//maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
-        document.body.appendChild(script);
-    }
- }
+zomatoApp.makeMarkers = function initMap() {
+  const userLatLng = {lat: -25.363, lng: 131.044};
+  const map = new google.maps.Map(document.getElementById('map_canvas'), {
+    zoom: 4,
+    center: userLatLng
+  });
+
+  const marker = new google.maps.Marker({
+    position: userLatLng,
+    map: map,
+    title: 'Hello World!'
+  });
+  // populating marker to map:
+  marker.setMap(map);
+}
+
+
+
 
 zomatoApp.init = function(){
 	google.maps.event.addDomListener(window, 'load', zomatoApp.getUserLocation());
