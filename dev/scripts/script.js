@@ -3,6 +3,7 @@ zomatoApp = {};
 zomatoApp.inputLocationName = "";
 zomatoApp.inputLatitude = "";
 zomatoApp.inputLongitude = "";
+zomatoApp.allRestaurants = [];
 zomatoApp.restaurantsNearby = [];
 
 //helper function that displays variables
@@ -36,75 +37,85 @@ zomatoApp.getUserLocation = function(){
     console.log('get user location printed');
 };
 
-
-// zomatoApp.getUserLocation = function(){
-//     var input = $('#location')[0];
-//     google.maps.event.addDomListener(input, 'keydown', function(e) { 
-//     if (e.keyCode == 13) { 
-//         e.preventDefault(); 
-//      } 
-//     });
-//     var autocomplete = new google.maps.places.Autocomplete(input);
-//     google.maps.event.addListener(autocomplete, 'place_changed', function() {
-//         var place = autocomplete.getPlace();
-//         zomatoApp.inputLocationName = place.name;
-//         zomatoApp.inputLatitude = place.geometry.location.lat();
-//         zomatoApp.inputLongitude = place.geometry.location.lng();
-        
-//         zomatoApp.displayResults(zomatoApp.inputLocationName, zomatoApp.inputLatitude, zomatoApp.inputLongitude); // this can be removed...it was just displaying the info
-//         zomatoApp.getRestaurants(zomatoApp.inputLatitude, zomatoApp.inputLongitude);    
-//     });
-//     console.log('get user location printed');
-// };
-
-//on submit, grab input value of #location
-//pass value into geolocation api
-//store lat and lon variables 
-
-
 zomatoApp.getRestaurants = function(latitude,longitude){
-     $.ajax({
-        async: true,
-        crossDomain: true,
+    zomatoApp.ajaxRestaurantsOne = $.ajax({
         url: "https://developers.zomato.com/api/v2.1/search",
         method: "GET",
         format: "json",
         data: {
             lat: latitude,
             lon: longitude,
-            count: 30,
+            count: 20,
             radius: "20000"
         },
         headers: {
         "user-key": "7a5271a9bcd39c98815f81510b921ec4"
         }
-            }).then(function(data) {
-                console.log(data);
-            var results = data.restaurants;
-                console.log(results);
-            var userChoiceRating = "3";
-            var filteredByRating = results.forEach(function(item){
-                var restaurantRating = item.restaurant.user_rating.aggregate_rating;
-                var restaurantName = item.restaurant.name;
-                if (restaurantRating >= userChoiceRating){
-                    console.log(restaurantName, restaurantRating);
-                    //storing filtered results
-                    zomatoApp.restaurantsNearby.push(item);
-                } else {
-                    console.log("we broken");
-                }
-            });
-            console.log(zomatoApp.inputLatitude, zomatoApp.inputLongitude);
-            console.log(zomatoApp.restaurantsNearby);
-// function that returns an ajax call that accepts a paramater
-// put that into $when 4 times
+    });
 
+    zomatoApp.ajaxRestaurantsTwo = $.ajax({
+        url: "https://developers.zomato.com/api/v2.1/search",
+        method: "GET",
+        format: "json",
+        data: {
+            start: 21,
+            lat: latitude,
+            lon: longitude,
+            count: 20,
+            radius: "20000"
+        },
+        headers: {
+        "user-key": "7a5271a9bcd39c98815f81510b921ec4"
+        }
+    });
+    
+    zomatoApp.ajaxRestaurantsThree = $.ajax({
+        url: "https://developers.zomato.com/api/v2.1/search",
+        method: "GET",
+        format: "json",
+        data: {
+            start: 41,
+            lat: latitude,
+            lon: longitude,
+            count: 20,
+            radius: "20000"
+        },
+        headers: {
+        "user-key": "7a5271a9bcd39c98815f81510b921ec4"
+        }
+    });
+
+    $.when(zomatoApp.ajaxRestaurantsOne, zomatoApp.ajaxRestaurantsTwo, zomatoApp.ajaxRestaurantsThree)
+    .then(function(dataOne, dataTwo, dataThree) {
+        var allRestaurantsOne = dataOne[0].restaurants;
+        var allRestaurantsTwo = dataTwo[0].restaurants;
+        var allRestaurantsThree = dataThree[0].restaurants;
+        var allRestaurantsResults = allRestaurantsOne.concat(allRestaurantsTwo, allRestaurantsThree);
+        zomatoApp.allRestaurants.push(allRestaurantsResults); //allRestaurantsResults is a global var
+        
+        console.log(zomatoApp.allRestaurants);
+        
+        var results = allRestaurantsResults; 
+
+        var userChoiceRating = "3"; //needs to be changed for user input rating
+        var filteredByRating = results.forEach(function(item){
+            var restaurantRating = item.restaurant.user_rating.aggregate_rating;
+            var restaurantName = item.restaurant.name;
+            if (restaurantRating >= userChoiceRating){
+                console.log(restaurantName, restaurantRating);
+                //storing filtered results
+                zomatoApp.restaurantsNearby.push(item);
+            } else {
+                console.log("we broken");
+            }
         });
-}
+        console.log(zomatoApp.inputLatitude, zomatoApp.inputLongitude);
+        // console.log(zomatoApp.restaurantsNearby);
+    });
+};
 
 zomatoApp.init = function(){
 	google.maps.event.addDomListener(window, 'load', zomatoApp.getUserLocation());
-
 };
 
 $(function(){
