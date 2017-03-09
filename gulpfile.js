@@ -4,6 +4,7 @@ const concat = require("gulp-concat");
 const babel = require("gulp-babel");
 const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
+const plumber = require('gulp-plumber');
 const reload = browserSync.reload;
 
 //styles task takes the tasks from the styles dev folder
@@ -17,6 +18,7 @@ gulp.task("styles", () => {
 	.pipe(sass().on("error",sass.logError))
 	.pipe(autoprefixer('last 2 versions', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
 	.pipe(concat("style.css"))
+	.pipe(plumber())
 	.pipe(gulp.dest("./public/styles"))
 	.pipe(reload({stream: true}));
 });
@@ -27,6 +29,7 @@ gulp.task("scripts", () => {
 		.pipe(babel({
 			presets: ["es2015"]
 		}))
+		.pipe(plumber())
 		.pipe(gulp.dest("./public/scripts"))
 		.pipe(reload({stream: true}));
 });
@@ -42,5 +45,10 @@ gulp.task('watch', function() {
 	gulp.watch('./dev/styles/*.scss', ['styles']);
  	gulp.watch('./*.html', reload);
 });
+
+gulp.src('./src/*.ext')
+    .pipe(plumber())
+    .pipe(coffee())
+    .pipe(gulp.dest('./dist'));
 
 gulp.task('default', ['browser-sync','styles', 'scripts', 'watch']);

@@ -1,4 +1,5 @@
- const zomatoApp = {};
+
+const zomatoApp = {};
 
 zomatoApp.inputLocationName = "";
 zomatoApp.inputLatitude = "";
