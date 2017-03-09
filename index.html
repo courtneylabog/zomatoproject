@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Zomato Sauce</title>
 	<link rel="stylesheet" href="public/styles/style.css">
+<<<<<<< HEAD
 	<style>
 		body{
 			diplay:flex;
@@ -18,6 +19,8 @@
 			text-align: center;
 		}
 	</style>
+=======
+>>>>>>> fdca2c46e4883f1ec3fd8b5e4dd251637c652761
 </head>
 <body>
 	<header>
@@ -28,13 +31,17 @@
 		<div class="userInput">
 		</div>
 	</header>
+	<main> <!-- added from, input with autocomplete on  -->
+	<form>
+		<input id="location" type="text" size="50" placeholder="Enter Location" autocomplete="on" runat="server"/>
+		<input type="range" min="1" max="5" id="inputRating"> <!-- added input range -->
+	</form>
+	
+	<div class="userInput">
+	</div>
 
-	<section class="restaurantMap">
-	<!-- google map embed holding multiple markers -->
-		<div id="map_wrapper">
-		    <div id="map_canvas" class="mapping"></div>
-		</div><!--  google map embed end -->
-	</section>
+		
+	</main>
 	<footer>
 		
 	</footer>
