@@ -113,6 +113,14 @@ zomatoApp.getRestaurants = function(latitude,longitude){
     });
 };
 
+
+zomatoApp.makeMarkers = function (){
+        var script = document.createElement('script');
+        script.src = "//maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
+        document.body.appendChild(script);
+    }
+ }
+
 zomatoApp.init = function(){
 	google.maps.event.addDomListener(window, 'load', zomatoApp.getUserLocation());
 };
