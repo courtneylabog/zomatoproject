@@ -2,32 +2,35 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Zomato Sauce</title>
 	<link rel="stylesheet" href="public/styles/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Zomato Sauce</title>
+	
 </head>
 <body>
 	<header>
 		<h1>Zomato Sauce</h1>
+		<form id="formUserInfo">
+			<input id="location" type="text" size="50" placeholder="Enter Location" autocomplete="on" runat="server"/>
+			<input type="range" min="1" max="5" id="inputRating"> 
+			<input type="submit" id="submitUserInfo" value="Submit">
+		</form>
+		<div class="userInput">
+		</div> <!-- delete later -->
 	</header>
-	<main> <!-- added from, input with autocomplete on  -->
-	<form>
-		<input id="location" type="text" size="50" placeholder="Enter Location" autocomplete="on" runat="server"/>
-		<input type="range" min="1" max="5" id="inputRating"> <!-- added input range -->
-	</form>
-	
-	<div class="userInput">
-	</div>
-		
-	</main>
+	<section>
+		<div id="map_canvas" class="mapping">
+		</div>
+	</section>
+
 	<footer>
-		
 	</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!-- jquery added -->
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBCqhZj9r_-ng3j6qpWgoV9BisiNw7FDoM&libraries=places" type="text/javascript"></script>
-<!-- added google API/ places library without key-->
+
 <script src="public/scripts/script.js"></script>
-<!-- linked to out scritp.js file -->
 </body>
 </html>

@@ -1,3 +1,21 @@
+@import "partials/normalize";
+
+// Variables
+$fiveRatingColor: #305D02;
+$fourRatingColor: #5BA729;
+$threeRatingColor: #CDD614;
+$twoRatingColor: #FF7800;
+$oneRatingColor:#D2202D;
+$noRatingColor: #7E8082;
+
+$briefColorMain: #3D3D3D;
+$briefColorSecondary:#B87562;
+$briefColorTert:#E9F2EA;
+
+$typogHeader: 'Open Sans', sans-serif;
+$typogContent: 'Roboto', sans-serif;
+
+
 h1 {
 	color: red;
 }
@@ -9,16 +27,28 @@ body{
 	align-items:center;
 }
 
-main{
-	display: flex;
-	flex-direciton:column;
-}
-
-form{
+header{
 	display: flex;
 	flex-direciton:column;
 	flex-wrap:wrap;
 	justify-content:center;
+	align-item:center;
+	text-align: center;
+	h1{
+		width:100%;
+	}
+}
+
+form{
+	width:100%;
+	display: flex;
+	flex-direciton:column;
+	flex-wrap:wrap;
+	justify-content:center;
+	input{
+		width:100%;
+		margin-bottom:20px;
+	}
 }
 
 #location{
@@ -29,3 +59,17 @@ form{
 	margin-top:20px;
 	width:60%;
 }
+
+
+#map_wrapper {
+    height: 400px;
+    border:2px solid red;
+}
+
+#map_canvas {
+
+    width: 500px;
+    height: 400px;
+    border:2px solid red;
+}
+
