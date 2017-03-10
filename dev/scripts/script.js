@@ -5,7 +5,9 @@ zomatoApp.inputLatitude = "";
 zomatoApp.inputLongitude = "";
 zomatoApp.allRestaurants = [];
 zomatoApp.inputUserRating = 0;
-zomatoApp.tenRestaurants = [];
+// zomatoApp.tenRestaurants = [];
+// zomatoApp.markers = [];
+
 //helper function that displays variables
 zomatoApp.displayResults = function(a, b, c){
     $(".userInput").empty();
@@ -33,11 +35,11 @@ zomatoApp.getUserLocation = function(){
     });
 };
 
-zomatoApp.getRestaurants = function(latitude,longitude){
+zomatoApp.getRestaurants = function(latitude,longitude, usersChoice){
     zomatoApp.ajaxRestaurantsOne = $.ajax({
         url: "https://developers.zomato.com/api/v2.1/search",
         method: "GET",
-        format: "json",
+        dataType: "json",
         data: {
             lat: latitude,
             lon: longitude,
@@ -52,7 +54,7 @@ zomatoApp.getRestaurants = function(latitude,longitude){
     zomatoApp.ajaxRestaurantsTwo = $.ajax({
         url: "https://developers.zomato.com/api/v2.1/search",
         method: "GET",
-        format: "json",
+        dataType: "json",
         data: {
             start: 21,
             lat: latitude,
@@ -68,7 +70,7 @@ zomatoApp.getRestaurants = function(latitude,longitude){
     zomatoApp.ajaxRestaurantsThree = $.ajax({
         url: "https://developers.zomato.com/api/v2.1/search",
         method: "GET",
-        format: "json",
+        dataType: "json",
         data: {
             start: 41,
             lat: latitude,
@@ -86,48 +88,52 @@ zomatoApp.getRestaurants = function(latitude,longitude){
         var allRestaurantsOne = dataOne[0].restaurants;
         var allRestaurantsTwo = dataTwo[0].restaurants;
         var allRestaurantsThree = dataThree[0].restaurants;
-        var allRestaurantsResults = allRestaurantsOne.concat(allRestaurantsTwo, allRestaurantsThree);
-        zomatoApp.allRestaurants.push(allRestaurantsResults); //allRestaurantsResults is a global var
-        
-        // console.log(zomatoApp.allRestaurants);
-        
-        var results = allRestaurantsResults; 
+        zomatoApp.allRestaurants = allRestaurantsOne.concat(allRestaurantsTwo, allRestaurantsThree);
 
-        var userChoiceRating = zomatoApp.inputUserRating; 
-        
-        results.forEach(function(item){
+        zomatoApp.filteredRes = zomatoApp.allRestaurants.filter(function(item) {
             var restaurantRating = item.restaurant.user_rating.aggregate_rating;
-            var restaurantName = item.restaurant.name;
-            if (restaurantRating >= userChoiceRating){
-                if(zomatoApp.tenRestaurants.length < 10){
-                    zomatoApp.tenRestaurants.push(item);
-                    console.log('this is one restaurant');
-                }else{
-                    console.log('error');
+            return restaurantRating >= usersChoice
+        });
+
+        console.log("Filtered", zomatoApp.filteredRes)
+        if(zomatoApp.filteredRes.length === 0){
+            console.log("add error/ array empty/ no restaurants")
+        } else if(zomatoApp.filteredRes.length > 0 && zomatoApp.filteredRes.length < 10){
+            var firstTen = [];
+            firstTen = zomatoApp.filteredRes;
+        } else if(zomatoApp.filteredRes.length > 10){
+            var firstTen = [];
+            for(let i = 0; i < 10; i++) {
+                if(firstTen.length < 10){
+                    console.log(zomatoApp.filteredRes[i]);
+                    firstTen.push(zomatoApp.filteredRes[i]);
                 }
             }
-        });
+        } else {
+            console.log("ERROR: Something happenning appending firstTen");
+        }
+
+        console.log("this is the ten",firstTen);
+        zomatoApp.displayMarker(firstTen);
     });
 };
 
 // ATTEMPTING MAPS
 
-zomatoApp.displayMarker = function() {
-    var map;
+zomatoApp.displayMarker = function(results) {
     var bounds = new google.maps.LatLngBounds();
     var mapOptions = {
-        mapTypeId: 'roadmap'
+        mapTypeId: 'roadmap',
+        zoom: 15, //Important to add ZOOMMMMM
+        center: {lat: zomatoApp.inputLatitude, lng: zomatoApp.inputLongitude}
     };
 
     // Display a map on the page
-    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-    map.setTilt(45);
+    zomatoApp.map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    // zomatoApp.map.setTilt(45);
 
     // Multiple Markers
-    var markers = [
-        ['London Eye, London', 51.503454,-0.119562],
-        ['Palace of Westminster, London', 51.499633,-0.124755]
-    ];
+    // var markers = zomatoApp.markers;
 
     // Info Window Content
     var infoWindowContent = [
@@ -141,43 +147,62 @@ zomatoApp.displayMarker = function() {
     ];
         
     // Display multiple markers on a map
-    var infoWindow = new google.maps.InfoWindow(), marker, i;
+    // var infoWindow = new google.maps.InfoWindow(), marker, i;
     
     // Loop through our array of markers & place each one on the map  
-    for( i = 0; i < markers.length; i++ ) {
-        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
-        bounds.extend(position);
-        marker = new google.maps.Marker({
-            position: position,
-            map: map,
-            title: markers[i][0]
+    for(let i = 0; i < results.length; i++ ) {
+
+        let position = new google.maps.LatLng(results[i].restaurant.location.latitude, results[i].restaurant.location.longitude);
+
+        // bounds.extend(position);
+        let marker = new google.maps.Marker({
+            position: {
+                lat: parseFloat(results[i].restaurant.location.latitude),
+                lng: parseFloat(results[i].restaurant.location.longitude)
+            },
+            map: zomatoApp.map,
+            title: results[i].restaurant.name
         });
         
         // Allow each marker to have an info window    
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                infoWindow.setContent(infoWindowContent[i][0]);
-                infoWindow.open(map, marker);
-            }
-        })(marker, i));
+        // google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        //     return function() {
+        //         infoWindow.setContent(infoWindowContent[i][0]);
+        //         infoWindow.open(map, marker);
+        //     }
+        // })(marker, i));
 
         // Automatically center the map fitting all markers on the screen
-        map.fitBounds(bounds);
+        // map.fitBounds(bounds);
     }
 
     // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
-    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-        this.setZoom(14);
-        google.maps.event.removeListener(boundsListener);
-    });
-    
+    // var boundsListener = google.maps.event.addListener((zomatoApp.map), 'bounds_changed', function(event) {
+    //     this.setZoom(14);
+    //     google.maps.event.removeListener(boundsListener);
+    // });   
 }
 
+// ADDED THURSDAY NIGHT, J U L E S
+zomatoApp.addMarkers = function(filteredTen){
+    console.log("filtered ten", filteredTen)
+    filteredTen.forEach(function(place){
+        var oneMarker = [];
+        oneMarker.push(place.name);
+        oneMarker.push(place.location.latitude);
+        oneMarker.push(place.location.longitude);
+        zomatoApp.markers.push(oneMarker);
+    });
+}
+//END OF ADDED THURSDAY NIGHT, BY J U L E S 
+
+
 zomatoApp.getUserInfo = function(){
+   
     $('#formUserInfo').on('submit', function(e){
         e.preventDefault();
         zomatoApp.inputUserRating = $('#inputRating').val();
-        zomatoApp.getRestaurants(zomatoApp.inputLatitude, zomatoApp.inputLongitude); 
+        zomatoApp.getRestaurants(zomatoApp.inputLatitude, zomatoApp.inputLongitude, zomatoApp.inputUserRating);
     });
 }
 
@@ -185,11 +210,9 @@ zomatoApp.getUserInfo = function(){
 // CHANGE THIS UP ---AFTER
 
 zomatoApp.init = function(){
-    google.maps.event.addDomListener(window, 'load', zomatoApp.getUserLocation());
+    zomatoApp.getUserLocation();
     zomatoApp.getUserInfo();
-    google.maps.event.addDomListener(window, 'load', zomatoApp.displayMarker());
 };
-
 
 $(function(){
   zomatoApp.init();
