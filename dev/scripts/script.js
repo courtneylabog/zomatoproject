@@ -5,6 +5,9 @@ zomatoApp.inputLatitude = "";
 zomatoApp.inputLongitude = "";
 zomatoApp.allRestaurants = [];
 zomatoApp.inputUserRating = 0;
+zomatoApp.restoLatitude = "";
+zomatoApp.restoLongitude = "";
+
 // zomatoApp.tenRestaurants = [];
 // zomatoApp.markers = [];
 
@@ -158,19 +161,36 @@ zomatoApp.displayMarker = function(results) {
         let marker = new google.maps.Marker({
             position: {
                 lat: parseFloat(results[i].restaurant.location.latitude),
-                lng: parseFloat(results[i].restaurant.location.longitude)
+                lng: parseFloat(results[i].restaurant.location.longitude),
             },
             map: zomatoApp.map,
-            title: results[i].restaurant.name
+            title: results[i].restaurant.name,
+            price:  results[i].restaurant.price_range,
+            address: results[i].restaurant.location.address+" "+ results[i].restaurant.location.city,
+            cuisine: results[i].restaurant.cuisines,
+            latitude: results[i].restaurant.location.latitude,
+            longitude: results[i].restaurant.location.longitude,
         });
         
         // Allow each marker to have an info window    
-        // google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        //     return function() {
-        //         infoWindow.setContent(infoWindowContent[i][0]);
-        //         infoWindow.open(map, marker);
-        //     }
-        // })(marker, i));
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                // infoWindow.setContent(infoWindowContent[i][0]);
+                // infoWindow.open(map, marker);
+                zomatoApp.restoLatitude = marker.latitude;
+                zomatoApp.restoLongitude = marker.longitude;
+                $('#infoRestaurant').empty();
+                $('#infoRestaurant').append(`<p>Name:${marker.title}</p>`);
+                $('#infoRestaurant').append(`<p>Cuisine:${marker.cuisine}</p>`);
+                $('#infoRestaurant').append(`<p>Price:${marker.price}</p>`);
+                $('#infoRestaurant').append(`<p>Address:${marker.address}</p>`);
+                $('#infoRestaurant').append(`<p>Lat:${marker.latitude}</p>`);
+                $('#infoRestaurant').append(`<p>Long:${marker.longitude}</p>`);
+
+                $('#infoRestaurant').append(`<button id="takeMe" class="button">Take Me There</button>`);
+                zomatoApp.getDirections();
+            }
+        })(marker, i));
 
         // Automatically center the map fitting all markers on the screen
         // map.fitBounds(bounds);
@@ -206,9 +226,40 @@ zomatoApp.getUserInfo = function(){
     });
 }
 
+zomatoApp.getDirections = function(userlat, userlong, restolat, restolong){
+    $('#takeMe').on("click", function(){
+        $('#directions').append("<p>Take me got clicked</p>");
+        
+        var googleKey = ' AIzaSyBCqhZj9r_-ng3j6qpWgoV9BisiNw7FDoM';
+        var directionsUrl ='https://maps.googleapis.com/maps/api/directions/json?';
+        var originUser = `${zomatoApp.inputLatitude}, ${zomatoApp.inputLongitude}`;
+        var destinationResto = `${zomatoApp.restoLatitude}, ${zomatoApp.restoLongitude}`;
 
+
+        $.ajax({
+            url: 'http://proxy.hackeryou.com',
+            dataType: 'json',
+            method:'GET',
+            data:{
+                reqUrl: directionsUrl,
+                params: {    
+                key: googleKey,
+                origin: originUser,
+                destination: destinationResto,
+                mode:'walking'
+                },
+                xmlToJSON:false
+            }
+        }).then(function(data){
+            var directionResult = data.routes[0].legs[0].steps;
+            console.log(directionResult);
+            directionResult.forEach(function(step){
+                $('#directions').append(`<p>${step.html_instructions}</p>`);
+            });
+        });
+    });
+}
 // CHANGE THIS UP ---AFTER
-
 zomatoApp.init = function(){
     zomatoApp.getUserLocation();
     zomatoApp.getUserInfo();
@@ -217,4 +268,6 @@ zomatoApp.init = function(){
 $(function(){
   zomatoApp.init();
 });
+
+  // .routes[0].steps[0].html_instructions
 
