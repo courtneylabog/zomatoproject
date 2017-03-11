@@ -223,7 +223,7 @@ zomatoApp.getUserInfo = function(){
 
 zomatoApp.getDirections = function(userlat, userlong, restolat, restolong){
     $('#takeMe').on("click", function(){
-        $('#directions').append("<p>Take me got clicked</p>");
+        $('#renderedDirections').append("Follow these directions:");
         
         var googleKey = ' AIzaSyBCqhZj9r_-ng3j6qpWgoV9BisiNw7FDoM';
         var directionsUrl ='https://maps.googleapis.com/maps/api/directions/json?';
@@ -249,7 +249,7 @@ zomatoApp.getDirections = function(userlat, userlong, restolat, restolong){
             var directionResult = data.routes[0].legs[0].steps;
             console.log(directionResult);
             directionResult.forEach(function(step){
-                $('#directions').append(`<p>${step.html_instructions}</p>`);
+                $('#renderedDirections').append(`<p>${step.html_instructions}</p>`);
             });
         });
     });
