@@ -43,6 +43,10 @@ header{
 	}
 }
 
+body {
+	background-color: $briefColorTert;
+}
+
 section{
 	background-color: $briefColorTert;
 }
@@ -58,18 +62,18 @@ input {
 form{
 	width:80%;
 	margin:0 auto;
-	// input{
-	// 	width:100%;
-	// 	margin-bottom:20px;
-	// }
 }
 
 svg {
 	fill:$briefColorSecondary;
 }
 
+ul {
+	list-style: none;
+}
+
 .wrapper {
-	max-width: 1190px;
+	width: 95%;
 	margin:0 auto;
 }
 //dictates size of SVG
@@ -111,8 +115,20 @@ svg {
 	font-family: $typogContent;
 }
 
+.userInfoResults{
+	display: flex;
+	background-color: pink;
+}
 
+.mapCanvas {
+	width: 50%;
+	height: 400px;
+	border:2px solid $briefColorSecondary;
+}
 
+.restaurantList{
+	width:50%;
+}
 
 .directions{
 	font-family: $typogContent;
@@ -131,11 +147,3 @@ svg {
 // 	height: 400px;
 // 	border:2px solid red;
 // }
-
-#map_canvas {
-	margin:0 auto;
-	width: 90%;
-	height: 400px;
-	border:2px solid $briefColorSecondary;
-}
-

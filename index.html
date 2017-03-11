@@ -10,6 +10,7 @@
 </head>
 <body>
 <main class="wrapper">
+<!-- HEADER SECTION-->
 	<header>	
 		<div class="svgWrapper">
 			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" baseProfile="tiny" x="0px" y="0px" viewBox="0 0 100 125" xml:space="preserve">
@@ -29,16 +30,39 @@
 		<div class="userInput">
 		</div> 
 	</header>
+<!-- USER INFO RESULTS SECTION (pulls up map and list of restaurants ) -->
 	<section>
-		<div id="map_canvas" class="mapping">
+		<div class="userInfoResults">
+			<div class="mapCanvas" id="map_canvas" class="mapping">
+			</div>
+			<div class="restaurantList">
+			<ul>
+				<li>
+			<!-- restaurant details card -->
+					<div id="infoRestaurant" class="restaurantCard"></div>
+				</li>
+				<li>
+					<div id="infoRestaurant" class="restaurantCard"></div>
+				</li>
+				<li>
+					<div id="infoRestaurant" class="restaurantCard"></div>
+				</li>
+				<li>
+					<div id="infoRestaurant" class="restaurantCard"></div>
+				</li>
+				<li>
+					<div id="infoRestaurant" class="restaurantCard"></div>
+				</li>
+			</ul>
+			</div>
 		</div>
 	</section>
 
 	<section>
-		<div id="infoRestaurant">
+		<div>
 		</div>
 	</section>
-
+<!-- DIRECTIONS SECTIONS -->
 	<section class="directions">
 		<div id="renderedDirections">
 		</div>
@@ -47,7 +71,6 @@
 	</footer>
 </main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<!-- jquery added -->
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBCqhZj9r_-ng3j6qpWgoV9BisiNw7FDoM&libraries=places" type="text/javascript"></script>
 <script src="public/scripts/script.js"></script>
 </body>
