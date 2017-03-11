@@ -12,11 +12,9 @@ zomatoApp.restoLongitude = "";
 // zomatoApp.markers = [];
 
 //helper function that displays variables
-zomatoApp.displayResults = function(a, b, c){
+zomatoApp.displayResults = function(a){
     $(".userInput").empty();
-	$('.userInput').append(`<h3>Name:${a}</h3>`);
-	$('.userInput').append(`<h3>Latitude:${b}</h3>`);
-	$('.userInput').append(`<h3>Longitude:${c}</h3>`);
+	$('.userInput').append(`<h3>Restaurants around ${a}: </h3>`);
 };
 
 zomatoApp.getUserLocation = function(){
@@ -29,7 +27,7 @@ zomatoApp.getUserLocation = function(){
         zomatoApp.inputLatitude = place.geometry.location.lat();
         zomatoApp.inputLongitude = place.geometry.location.lng();
 
-        zomatoApp.displayResults(zomatoApp.inputLocationName, zomatoApp.inputLatitude, zomatoApp.inputLongitude);
+        zomatoApp.displayResults(zomatoApp.inputLocationName);
     });
     google.maps.event.addDomListener(input, 'keydown', function(e) { 
     if (e.keyCode == 13) { 
@@ -184,9 +182,6 @@ zomatoApp.displayMarker = function(results) {
                 $('#infoRestaurant').append(`<p>Cuisine:${marker.cuisine}</p>`);
                 $('#infoRestaurant').append(`<p>Price:${marker.price}</p>`);
                 $('#infoRestaurant').append(`<p>Address:${marker.address}</p>`);
-                $('#infoRestaurant').append(`<p>Lat:${marker.latitude}</p>`);
-                $('#infoRestaurant').append(`<p>Long:${marker.longitude}</p>`);
-
                 $('#infoRestaurant').append(`<button id="takeMe" class="button">Take Me There</button>`);
                 zomatoApp.getDirections();
             }
