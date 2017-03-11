@@ -137,25 +137,19 @@ zomatoApp.displayMarker = function(results) {
     // var markers = zomatoApp.markers;
 
     // Info Window Content
-    var infoWindowContent = [
-        ['<div class="info_content">' +
-        '<h3>London Eye</h3>' +
-        '<p>The London Eye is a giant Ferris wheel situated on the banks of the River Thames. The entire structure is 135 metres (443 ft) tall and the wheel has a diameter of 120 metres (394 ft).</p>' +        '</div>'],
-        ['<div class="info_content">' +
-        '<h3>Palace of Westminster</h3>' +
-        '<p>The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. Commonly known as the Houses of Parliament after its tenants.</p>' +
-        '</div>']
-    ];
         
     // Display multiple markers on a map
-    // var infoWindow = new google.maps.InfoWindow(), marker, i;
+    var infoWindow = new google.maps.InfoWindow(), marker, i;
+    var infoWindowContent = [];
     
     // Loop through our array of markers & place each one on the map  
     for(let i = 0; i < results.length; i++ ) {
 
         let position = new google.maps.LatLng(results[i].restaurant.location.latitude, results[i].restaurant.location.longitude);
 
-        // bounds.extend(position);
+        let infoWindowMarker = [`<div class="info_content"><h3>${results[i].restaurant.name}</h3><p>${results[i].restaurant.cuisines}</p><p>Rating: ${results[i].restaurant.user_rating.aggregate_rating}</p></div>`];
+
+        infoWindowContent.push(infoWindowMarker);
         let marker = new google.maps.Marker({
             position: {
                 lat: parseFloat(results[i].restaurant.location.latitude),
@@ -168,22 +162,26 @@ zomatoApp.displayMarker = function(results) {
             cuisine: results[i].restaurant.cuisines,
             latitude: results[i].restaurant.location.latitude,
             longitude: results[i].restaurant.location.longitude,
+            picture: results[i].restaurant.featured_image,
         });
         
         // Allow each marker to have an info window    
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-                // infoWindow.setContent(infoWindowContent[i][0]);
-                // infoWindow.open(map, marker);
+                // infoWindow.setContent(`<h3>${marker.title}</h3>`);
+                infoWindow.setContent(infoWindowContent[i][0]);
+
                 zomatoApp.restoLatitude = marker.latitude;
                 zomatoApp.restoLongitude = marker.longitude;
                 $('#infoRestaurant').empty();
+                $('#infoRestaurant').append(`<img src="${marker.picture}" alt="${marker.title}">`);
                 $('#infoRestaurant').append(`<p>Name:${marker.title}</p>`);
                 $('#infoRestaurant').append(`<p>Cuisine:${marker.cuisine}</p>`);
                 $('#infoRestaurant').append(`<p>Price:${marker.price}</p>`);
                 $('#infoRestaurant').append(`<p>Address:${marker.address}</p>`);
                 $('#infoRestaurant').append(`<button id="takeMe" class="button">Take Me There</button>`);
                 zomatoApp.getDirections();
+                infoWindow.open(zomatoApp.map, marker);
             }
         })(marker, i));
 
@@ -214,7 +212,7 @@ zomatoApp.getRatingInput = function(number){
     var inputRatingVal = number/10; 
     var inputRatingFloor = Math.floor(inputRatingVal);
     if(inputRatingVal - inputRatingFloor > 0.5){
-        var finalRatingResultCeiling = Math.ceiling(inputRatingVal);
+        var finalRatingResultCeiling = Math.ceil(inputRatingVal);
         return finalRatingResultCeiling;
     } else {
         var finalRatingResultFloor = Math.floor(inputRatingVal);
@@ -234,7 +232,7 @@ zomatoApp.getUserInfo = function(){
 
 zomatoApp.getDirections = function(userlat, userlong, restolat, restolong){
     $('#takeMe').on("click", function(){
-        $('#directions').append("<p>Take me got clicked</p>");
+        $('#renderedDirections').append("Follow these directions:");
         
         var googleKey = ' AIzaSyBCqhZj9r_-ng3j6qpWgoV9BisiNw7FDoM';
         var directionsUrl ='https://maps.googleapis.com/maps/api/directions/json?';
@@ -260,7 +258,7 @@ zomatoApp.getDirections = function(userlat, userlong, restolat, restolong){
             var directionResult = data.routes[0].legs[0].steps;
             console.log(directionResult);
             directionResult.forEach(function(step){
-                $('#directions').append(`<p>${step.html_instructions}</p>`);
+                $('#renderedDirections').append(`<p>${step.html_instructions}</p>`);
             });
         });
     });
