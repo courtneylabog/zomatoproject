@@ -213,7 +213,6 @@ zomatoApp.addMarkers = function(filteredTen){
 
 
 zomatoApp.getUserInfo = function(){
-   
     $('#formUserInfo').on('submit', function(e){
         e.preventDefault();
         zomatoApp.inputUserRating = $('#inputRating').val();
@@ -248,8 +247,14 @@ zomatoApp.getDirections = function(userlat, userlong, restolat, restolong){
         }).then(function(data){
             var directionResult = data.routes[0].legs[0].steps;
             console.log(directionResult);
+            let distanceResult = data.routes[0].legs[0].distance.text;
+            let durationResult = data.routes[0].legs[0].duration.text;
+            console.log(directionResult, durationResult);
+            $('#renderedDirections').append(`<p>${distanceResult}</p>`);
+            $('#renderedDirections').append(`<p>${durationResult}</p>`);
             directionResult.forEach(function(step){
                 $('#renderedDirections').append(`<p>${step.html_instructions}</p>`);
+    
             });
         });
     });
