@@ -20,10 +20,6 @@ html {
 	font-size: 62.5%;
 }
 
-h1 {
-	color: $briefColorMain;
-}
-
 header{
 	width:100%;
 	display: flex;
@@ -32,11 +28,18 @@ header{
 	align-item:center;
 	text-align: center;
 	background-color: $briefColorTert;
+	padding:50px 0 0 0;
 	h1{
 		width:100%;
-		margin:0;
-		font-size: 5rem;
+		// margin:0;
 		font-family: $typogHeader;
+		color: $briefColorMain;
+		letter-spacing: 2.5px;
+		margin-top:-15px;
+		margin-bottom: 40px;
+		text-transform: uppercase;
+		font-size: 5rem;
+		
 	}
 }
 
@@ -44,13 +47,21 @@ section{
 	background-color: $briefColorTert;
 }
 
+input {
+	outline:none;
+	text-shadow:none;
+	border:none;
+	box-shadow:none;
+	// color:transparent;
+}
+
 form{
 	width:80%;
 	margin:0 auto;
-	input{
-		width:100%;
-		margin-bottom:20px;
-	}
+	// input{
+	// 	width:100%;
+	// 	margin-bottom:20px;
+	// }
 }
 
 svg {
@@ -67,15 +78,15 @@ svg {
 	margin: 0 auto;
 }
 
+.input__textbox {
+	color: $briefColorMain;
+	font-size: 3.5rem;
+}
+
 .input__submit{
 	width:60%;
-	outline:none;
-	color:transparent;
-	text-shadow:none;
-	border:none;
-	box-shadow:none;
 	padding:10px;
-	font-family: $typogHeader;
+	font-family: $typogContent;
 	font-size: 2.5rem;
 	background-color:$briefColorSecondary;
 	color: $briefColorQuat;
@@ -93,6 +104,15 @@ svg {
 	background-color:$briefColorSecondary;
 	color: $briefColorQuat;
 }
+
+.userInput{
+	font-size: 2rem;
+	color: $briefColorMain;
+	font-family: $typogContent;
+}
+
+
+
 
 .directions{
 	font-family: $typogContent;
