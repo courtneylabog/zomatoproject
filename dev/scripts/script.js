@@ -209,14 +209,25 @@ zomatoApp.addMarkers = function(filteredTen){
         zomatoApp.markers.push(oneMarker);
     });
 }
-//END OF ADDED THURSDAY NIGHT, BY J U L E S 
+
+zomatoApp.getRatingInput = function(number){
+    var inputRatingVal = number/10; 
+    var inputRatingFloor = Math.floor(inputRatingVal);
+    if(inputRatingVal - inputRatingFloor > 0.5){
+        var finalRatingResultCeiling = Math.ceiling(inputRatingVal);
+        return finalRatingResultCeiling;
+    } else {
+        var finalRatingResultFloor = Math.floor(inputRatingVal);
+        return finalRatingResultFloor;
+    }
+}
 
 
 zomatoApp.getUserInfo = function(){
    
     $('#formUserInfo').on('submit', function(e){
         e.preventDefault();
-        zomatoApp.inputUserRating = $('#inputRating').val();
+        zomatoApp.inputUserRating = zomatoApp.getRatingInput($('#inputRating').val());
         zomatoApp.getRestaurants(zomatoApp.inputLatitude, zomatoApp.inputLongitude, zomatoApp.inputUserRating);
     });
 }
