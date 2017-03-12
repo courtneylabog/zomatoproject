@@ -84,6 +84,11 @@ zomatoApp.getRestaurants = function(latitude,longitude, usersChoice){
 
     $.when(zomatoApp.ajaxRestaurantsOne, zomatoApp.ajaxRestaurantsTwo, zomatoApp.ajaxRestaurantsThree)
     .then(function(dataOne, dataTwo, dataThree) {
+        $('#loadingMap').hide();
+        $('#restaurants').fadeIn();
+        $('html, body').animate({
+            scrollTop: $("#restaurants").offset().top
+        }, 500);
         var allRestaurantsOne = dataOne[0].restaurants;
         var allRestaurantsTwo = dataTwo[0].restaurants;
         var allRestaurantsThree = dataThree[0].restaurants;
@@ -189,12 +194,12 @@ zomatoApp.displayMarker = function(results) {
                 zomatoApp.restoLatitude = marker.latitude;
                 zomatoApp.restoLongitude = marker.longitude;
                 $('#infoRestaurant').empty();
-                $('#infoRestaurant').append(`<img src="${marker.picture}" alt="${marker.title}">`);
+                $('#infoRestaurant').append(`<div class="restaurantImg"><img src="${marker.picture}" alt="${marker.title}"></div>`);
                 $('#infoRestaurant').append(`<p>Name:${marker.title}</p>`);
                 $('#infoRestaurant').append(`<p>Cuisine:${marker.cuisine}</p>`);
                 $('#infoRestaurant').append(`<p>Price:${marker.price}</p>`);
                 $('#infoRestaurant').append(`<p>Address:${marker.address}</p>`);
-                $('#infoRestaurant').append(`<button id="takeMe" class="button">Take Me There</button>`);
+                $('#infoRestaurant').append(`<button id="takeMe" class="button">TAKE ME THERE</button>`);
                 zomatoApp.getDirections();
                 infoWindow.open(zomatoApp.map, marker);
 
@@ -239,25 +244,28 @@ zomatoApp.getRatingInput = function(number){
 zomatoApp.getUserInfo = function(){
     $('#formUserInfo').on('submit', function(e){
         e.preventDefault();
+        $("#loadingMap").fadeIn();   
+        $('html, body').animate({
+            scrollTop: $("#loadingMap").offset().top
+        }, 500);
         zomatoApp.inputUserRating = zomatoApp.getRatingInput($('#inputRating').val());
         zomatoApp.getRestaurants(zomatoApp.inputLatitude, zomatoApp.inputLongitude, zomatoApp.inputUserRating);
         zomatoApp.displayResults(zomatoApp.inputLocationName);
-
     });
 }
 
 zomatoApp.getDirections = function(userlat, userlong, restolat, restolong){
     $('#takeMe').on("click", function(){
+        $("#renderedDirections").empty()
+        $("#loadingDirections").fadeIn();        
         $('html, body').animate({
-            scrollTop: $(".directions").offset().top
+            scrollTop: $("#loadingDirections").offset().top
         }, 500);
-        $('#renderedDirections').append("Follow these directions:");
-           
+
         var googleKey = ' AIzaSyBCqhZj9r_-ng3j6qpWgoV9BisiNw7FDoM';
         var directionsUrl ='https://maps.googleapis.com/maps/api/directions/json?';
         var originUser = `${zomatoApp.inputLatitude}, ${zomatoApp.inputLongitude}`;
         var destinationResto = `${zomatoApp.restoLatitude}, ${zomatoApp.restoLongitude}`;
-
 
         $.ajax({
             url: 'http://proxy.hackeryou.com',
@@ -274,18 +282,25 @@ zomatoApp.getDirections = function(userlat, userlong, restolat, restolong){
                 xmlToJSON:false
             }
         }).then(function(data){
+            $("#loadingDirections").hide();
+            $("#directions").fadeIn();   
+            $('html, body').animate({
+                scrollTop: $("#directions").offset().top
+            }, 500);
             var directionResult = data.routes[0].legs[0].steps;
             console.log(directionResult);
             let distanceResult = data.routes[0].legs[0].distance.text;
             let durationResult = data.routes[0].legs[0].duration.text;
             console.log(directionResult, durationResult);
-            $('#renderedDirections').append(`<p>${distanceResult}</p>`);
-            $('#renderedDirections').append(`<p>${durationResult}</p>`);
+            $('#renderedDirections').append(`<h4>${distanceResult}</h4>`);
+            $('#renderedDirections').append(`<h4>${durationResult}</h4>`);
             directionResult.forEach(function(step){
                 $('#renderedDirections').append(`<p>${step.html_instructions}</p>`);
     
             });
         });
+        $('#renderedDirections').append(`<h3>Follow these directions:</h3>`);
+
     });
 }
 // CHANGE THIS UP ---AFTER
