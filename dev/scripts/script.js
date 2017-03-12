@@ -14,7 +14,8 @@ zomatoApp.restoLongitude = "";
 //helper function that displays variables
 zomatoApp.displayResults = function(a){
     $(".userInput").empty();
-	$('.userInput').append(`<h3>Restaurants around ${a}: </h3>`);
+	$('.userInput').append(`<i class="fa fa-map-o" aria-hidden="true"></i>
+<h3>Restaurants around ${a}: </h3>`);
 };
 
 zomatoApp.getUserLocation = function(){
