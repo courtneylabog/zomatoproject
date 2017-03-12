@@ -26,8 +26,6 @@ zomatoApp.getUserLocation = function(){
         zomatoApp.inputLocationName = place.name;
         zomatoApp.inputLatitude = place.geometry.location.lat();
         zomatoApp.inputLongitude = place.geometry.location.lng();
-
-        zomatoApp.displayResults(zomatoApp.inputLocationName);
     });
     google.maps.event.addDomListener(input, 'keydown', function(e) { 
     if (e.keyCode == 13) { 
@@ -151,7 +149,7 @@ zomatoApp.displayMarker = function(results) {
             lng: zomatoApp.inputLongitude,
         },
         map: zomatoApp.map,
-        // icon: add icon here
+        icon: '../../images/userMarker.svg'
     });
 
     //END U S E R marker
@@ -209,7 +207,7 @@ zomatoApp.displayMarker = function(results) {
 
     // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
     var boundsListener = google.maps.event.addListener((zomatoApp.map), 'bounds_changed', function(event) {
-        this.setZoom(17);
+        this.setZoom(18);
         google.maps.event.removeListener(boundsListener);
     });   
 }
@@ -243,6 +241,7 @@ zomatoApp.getUserInfo = function(){
         e.preventDefault();
         zomatoApp.inputUserRating = zomatoApp.getRatingInput($('#inputRating').val());
         zomatoApp.getRestaurants(zomatoApp.inputLatitude, zomatoApp.inputLongitude, zomatoApp.inputUserRating);
+        zomatoApp.displayResults(zomatoApp.inputLocationName);
 
     });
 }
