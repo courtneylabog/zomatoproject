@@ -210,7 +210,7 @@ zomatoApp.displayMarker = function(results) {
                     Price: ${priceDollar}</p>`);
                 $('#infoRestaurant').append(`<p><i class="fa fa-location-arrow" aria-hidden="true"></i> 
                     Address: ${marker.address}</p>`);
-                $('#infoRestaurant').append(`<button id="takeMe" class="button">TAKE ME THERE</button>`);
+                $('#infoRestaurant').append(`<button id="takeMe" class="button button__next">GET DIRECTIONS</button>`);
                 zomatoApp.getDirections();
                 infoWindow.open(zomatoApp.map, marker);
 

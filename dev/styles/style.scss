@@ -134,6 +134,11 @@ ul {
 	color: $briefColorQuat;
 }
 
+.button__next{
+	padding:15px;
+
+}
+
 .wrapper{
 	width: 95%;
 	margin:0 auto;
@@ -212,13 +217,13 @@ ul {
 }
 
 .restaurantCard i {
-	font-size: 2.7rem;
-	margin:5px;
+	font-size: 2.5rem;
 }
 
-
-
 .restaurantCard img {
+	display: flex;
+	justify-content:center;
+	align-items:center;
 	margin:auto;
 	width: 90%;
 }
