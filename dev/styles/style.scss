@@ -62,7 +62,7 @@ header{
 
 h2 {
 	font-size: 2.8rem;
-	margin:5px 0 15px 0;
+	margin:20px 0 20px 0;
 	font-family: $typogHeader;
 	color: $briefColorSecondary;
 }
@@ -71,11 +71,6 @@ h2 {
 h3{
 	font-family: $typogHeader;
 }
-
-h4{
-	color:$briefColorSecondary;	
-}
-
 
 section{
 	padding: 30px 0;
@@ -216,7 +211,9 @@ ul {
 	justify-content:center;
 }
 
+
 .restaurantCard i {
+	margin-right: 5px;
 	font-size: 2.5rem;
 }
 
@@ -240,9 +237,25 @@ ul {
 }
 
 //directions specific
+.directions {
+	background-color: $briefColorQuat;
+}
 
-#directions{
+.renderedDirections{
+	display: flex;
+	background-color: $briefColorQuat;
 	font-family: $typogContent;
+	font-size: 2rem;
+	padding:0;
+	width:90%;
+	display: flex;
+	flex-direction:column;
+	justify-content:center;
+	margin: auto;
+}
+
+.renderedDirections h2{
+	text-align: center;
 }
 
 #location{

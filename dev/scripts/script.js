@@ -121,7 +121,7 @@ zomatoApp.getRestaurants = function(latitude,longitude, usersChoice){
         console.log("this is the ten",firstFive);
         zomatoApp.displayMarker(firstFive);
         $('#infoRestaurant').empty();
-        $('#infoRestaurant').append(`<p>Please, click on a restaurant...Info will appear here</p>`);
+        $('#infoRestaurant').append(`<i class="fa fa-hand-pointer-o" aria-hidden="true"></i><p>Please, click on a marker and restaurant information will appear here</p>`);
     });
 };
 
@@ -228,7 +228,6 @@ zomatoApp.displayMarker = function(results) {
     });   
 }
 
-// ADDED THURSDAY NIGHT, J U L E S
 zomatoApp.addMarkers = function(filteredTen){
     console.log("filtered ten", filteredTen)
     filteredTen.forEach(function(place){
@@ -303,18 +302,15 @@ zomatoApp.getDirections = function(userlat, userlong, restolat, restolong){
             let distanceResult = data.routes[0].legs[0].distance.text;
             let durationResult = data.routes[0].legs[0].duration.text;
             console.log(directionResult, durationResult);
-            $('#renderedDirections').append(`<h4>${distanceResult}</h4>`);
-            $('#renderedDirections').append(`<h4>${durationResult}</h4>`);
+            $('#renderedDirections').append(`<h2>You are ${durationResult} (${distanceResult}) away from your pick!</h2>`);
+            $('#renderedDirections').append(`<h3>Follow these directions:</h3>`);
             directionResult.forEach(function(step){
                 $('#renderedDirections').append(`<p>${step.html_instructions}</p>`);
-    
             });
         });
-        $('#renderedDirections').append(`<h3>Follow these directions:</h3>`);
-
     });
 }
-// CHANGE THIS UP ---AFTER
+
 zomatoApp.init = function(){
     zomatoApp.getUserLocation();
     zomatoApp.getUserInfo();
@@ -323,6 +319,4 @@ zomatoApp.init = function(){
 $(function(){
   zomatoApp.init();
 });
-
-  // .routes[0].steps[0].html_instructions
 
