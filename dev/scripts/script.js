@@ -142,8 +142,6 @@ zomatoApp.displayMarker = function(results) {
     // Multiple Markers
     // var markers = zomatoApp.markers;
 
-    // Info Window Content
-        
     // Display multiple markers on a map
     var infoWindow = new google.maps.InfoWindow(), marker, i;
     var infoWindowContent = [];
@@ -156,9 +154,6 @@ zomatoApp.displayMarker = function(results) {
         map: zomatoApp.map,
         icon: '../../images/userMarker.svg'
     });
-
-    //END U S E R marker
-    
     // Loop through our array of markers & place each one on the map  
     for(let i = 0; i < results.length; i++ ) {
 
@@ -188,9 +183,22 @@ zomatoApp.displayMarker = function(results) {
         // Allow each marker to have an info window    
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
+            // finding price symbols for price outcome from zomato API
+              if(marker.price === 1){
+                  var priceDollar = '$'
+              } else if (marker.price === 2){
+                  var priceDollar = '$$'
+              } else if(marker.price === 3){
+                  var priceDollar =  '$$$'
+              } else if (marker.price === 4){
+                  var pricedollar =  '$$$$'
+              }else if (marker.price === 5){
+                  var priceDollar =  '$$$$$'
+              }else {
+                  var priceDollar = "No price information available for this restaurant"
+              }
                 // infoWindow.setContent(`<h3>${marker.title}</h3>`);
                 infoWindow.setContent(infoWindowContent[i][0]);
-
                 zomatoApp.restoLatitude = marker.latitude;
                 zomatoApp.restoLongitude = marker.longitude;
                 $('#infoRestaurant').empty();
@@ -199,7 +207,7 @@ zomatoApp.displayMarker = function(results) {
                 $('#infoRestaurant').append(`<p><i class="fa fa-cutlery" aria-hidden="true"></i>
                      Cuisine: ${marker.cuisine}</p>`);
                 $('#infoRestaurant').append(`<p><i class="fa fa-money" aria-hidden="true"></i> 
-                    Price: ${marker.price}</p>`);
+                    Price: ${priceDollar}</p>`);
                 $('#infoRestaurant').append(`<p><i class="fa fa-location-arrow" aria-hidden="true"></i> 
                     Address: ${marker.address}</p>`);
                 $('#infoRestaurant').append(`<button id="takeMe" class="button">TAKE ME THERE</button>`);
