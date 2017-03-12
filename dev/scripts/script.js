@@ -198,6 +198,10 @@ zomatoApp.displayMarker = function(results) {
               }else {
                   var priceDollar = "No price information available for this restaurant"
               }
+
+                $('html, body').animate({
+                scrollTop: $("#infoRestaurant").offset().top
+                }, 500);
                 // infoWindow.setContent(`<h3>${marker.title}</h3>`);
                 infoWindow.setContent(infoWindowContent[i][0]);
                 zomatoApp.restoLatitude = marker.latitude;
@@ -216,6 +220,7 @@ zomatoApp.displayMarker = function(results) {
                 infoWindow.open(zomatoApp.map, marker);
 
             }
+
         })(marker, i));
 
         // Automatically center the map fitting all markers on the screen
