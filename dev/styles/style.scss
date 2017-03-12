@@ -56,7 +56,7 @@ header{
 		margin-top:-10px;
 		margin-bottom: 10px;
 		text-transform: uppercase;
-		font-size: 4rem;
+		font-size: 5rem;
 	}
 }
 
@@ -69,14 +69,16 @@ h2 {
 
 
 h3{
+	font-size: 2.8rem;
+	margin:0px 0 20px 0;
+	text-align: center;
 	font-family: $typogHeader;
 }
 
 section{
-	padding: 30px 0;
 	background-color: $briefColorTert;
 	font-size: 1.5rem;
-	min-height: 100vh;
+	min-height: 95vh;
 	display:none;
 }
 
@@ -117,6 +119,10 @@ ul {
 	list-style: none;
 }
 
+input {
+	text-align: center;
+}
+
 .button {
 	outline:none;
 	text-shadow:none;
@@ -131,7 +137,6 @@ ul {
 
 .button__next{
 	padding:15px;
-
 }
 
 .wrapper{
@@ -144,8 +149,6 @@ ul {
 	margin: 0 auto;
 }
 
-
-// header specific
 .headerWrapper{
 	background: rgba(233, 242, 234, 0.7);
 	border: 2px solid white;
@@ -156,9 +159,9 @@ ul {
 .tagline{
 	font-family: $typogContent;
 	color: #3D3D3D;
-	font-size: 1.5rem;
+	font-size: 1.6rem;
 	font-style: italic;
-	margin:10px 0 30px 0;
+	margin:20px 0 30px 0;
 }
 
 //dictates size of SVG
@@ -169,8 +172,8 @@ ul {
 
 .input__textbox {
 	color: $briefColorMain;
-	font-size: 2rem;
-	padding: 4px;
+	font-size: 2.5rem;
+	padding: 20px 15px;
 }
 
 .input__submit{
@@ -188,33 +191,62 @@ ul {
 	width:60%;
 }
 
-//map restaurant specific
-
 .userInput{
-	font-size: 2rem;
+	text-align: center;
+	display: flex;
+	flex-direction:column;
+	justify-content:center;
+	font-size: 2.5rem;
 	color: $briefColorMain;
 	font-family: $typogContent;
 }
 
 .userInfoResults{
 	display: flex;
+	margin: 10px 0 30px 0;
+	@media (max-width: 992px) {
+		flex-direction:column;
+	}
+}
+
+.restaurants{
+	margin: 10px 0 10px 0;
+}
+
+i.fa-map-o{
+	text-align: center;
+	margin: 20px auto;
+	color: $briefColorSecondary;
+	font-size: 5rem;
 }
 
 .restaurantCard{
 	background-color: $briefColorQuat;
 	color: $briefColorMain;
 	font-family: $typogContent;
+	text-align: center;
 	margin:0 0 0 20px;
 	font-size: 1.8rem;
 	display: flex;
 	flex-direction:column;
 	justify-content:center;
+	width:50%;
+	padding: 20px;
+	@media (max-width: 992px) {
+	margin:0 auto;
+	width:80%;
+	// order:1;
+	}
 }
-
 
 .restaurantCard i {
 	margin-right: 5px;
 	font-size: 2.5rem;
+}
+
+i.fa-hand-pointer-o{
+	margin:10px auto;
+	font-size: 5rem;
 }
 
 .restaurantCard img {
@@ -225,33 +257,41 @@ ul {
 	width: 90%;
 }
 
+
 .mapCanvas {
 	width: 50%;
 	min-height: 80vh;
 	border:2px solid $briefColorSecondary;
+	@media (max-width: 992px) {
+		margin:0 auto;
+		width:80%;
+		height:200px;
+		// order:2;
+	}
 }
 
-#infoRestaurant{
-	width:50%;
-	padding: 20px;
-}
+// #infoRestaurant{
+// 	width:50%;
+// 	padding: 20px;
+// }
 
 //directions specific
 .directions {
 	background-color: $briefColorQuat;
+	width:60%;
+	margin:50px auto 50px auto;
 }
 
 .renderedDirections{
 	display: flex;
+	flex-direction:column;
+	justify-content:center;
+	margin: 10px auto;
 	background-color: $briefColorQuat;
 	font-family: $typogContent;
 	font-size: 2rem;
+	width:80%;
 	padding:0;
-	width:90%;
-	display: flex;
-	flex-direction:column;
-	justify-content:center;
-	margin: auto;
 }
 
 .renderedDirections h2{
@@ -261,18 +301,6 @@ ul {
 #location{
 	width:100%;
 }
-
-// #listFiveRestos li{
-// 	border:2px solid red;
-// 	width:90%;
-// 	margin:0 auto;
-// }
-
-// #map_wrapper {
-// 	height: 400px;
-// 	border:2px solid red;
-// }
-
 
 //loading animation
 $animationLength: 1s;
