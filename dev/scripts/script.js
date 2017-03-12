@@ -171,6 +171,7 @@ zomatoApp.displayMarker = function(results) {
             },
             map: zomatoApp.map,
             title: results[i].restaurant.name,
+            icon:'../../images/mapMarkerIcon.svg',
             price:  results[i].restaurant.price_range,
             address: results[i].restaurant.location.address+" "+ results[i].restaurant.location.city,
             cuisine: results[i].restaurant.cuisines,
