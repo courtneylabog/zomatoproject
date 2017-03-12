@@ -62,7 +62,7 @@ header{
 
 h2 {
 	font-size: 2.8rem;
-	margin:5px 0 15px 0;
+	margin:20px 0 20px 0;
 	font-family: $typogHeader;
 	color: $briefColorSecondary;
 }
@@ -71,11 +71,6 @@ h2 {
 h3{
 	font-family: $typogHeader;
 }
-
-h4{
-	color:$briefColorSecondary;	
-}
-
 
 section{
 	padding: 30px 0;
@@ -132,6 +127,11 @@ ul {
 	font-size: 1.8rem;
 	background-color:$briefColorSecondary;
 	color: $briefColorQuat;
+}
+
+.button__next{
+	padding:15px;
+
 }
 
 .wrapper{
@@ -211,14 +211,16 @@ ul {
 	justify-content:center;
 }
 
+
 .restaurantCard i {
-	font-size: 2.7rem;
-	margin:5px;
+	margin-right: 5px;
+	font-size: 2.5rem;
 }
 
-
-
 .restaurantCard img {
+	display: flex;
+	justify-content:center;
+	align-items:center;
 	margin:auto;
 	width: 90%;
 }
@@ -235,9 +237,25 @@ ul {
 }
 
 //directions specific
+.directions {
+	background-color: $briefColorQuat;
+}
 
-#directions{
+.renderedDirections{
+	display: flex;
+	background-color: $briefColorQuat;
 	font-family: $typogContent;
+	font-size: 2rem;
+	padding:0;
+	width:90%;
+	display: flex;
+	flex-direction:column;
+	justify-content:center;
+	margin: auto;
+}
+
+.renderedDirections h2{
+	text-align: center;
 }
 
 #location{
