@@ -194,11 +194,14 @@ zomatoApp.displayMarker = function(results) {
                 zomatoApp.restoLatitude = marker.latitude;
                 zomatoApp.restoLongitude = marker.longitude;
                 $('#infoRestaurant').empty();
+                $('#infoRestaurant').append(`<h2>${marker.title}</h2>`);
                 $('#infoRestaurant').append(`<div class="restaurantImg"><img src="${marker.picture}" alt="${marker.title}"></div>`);
-                $('#infoRestaurant').append(`<p>Name:${marker.title}</p>`);
-                $('#infoRestaurant').append(`<p>Cuisine:${marker.cuisine}</p>`);
-                $('#infoRestaurant').append(`<p>Price:${marker.price}</p>`);
-                $('#infoRestaurant').append(`<p>Address:${marker.address}</p>`);
+                $('#infoRestaurant').append(`<p><i class="fa fa-cutlery" aria-hidden="true"></i>
+                     Cuisine: ${marker.cuisine}</p>`);
+                $('#infoRestaurant').append(`<p><i class="fa fa-money" aria-hidden="true"></i> 
+                    Price: ${marker.price}</p>`);
+                $('#infoRestaurant').append(`<p><i class="fa fa-location-arrow" aria-hidden="true"></i> 
+                    Address: ${marker.address}</p>`);
                 $('#infoRestaurant').append(`<button id="takeMe" class="button">TAKE ME THERE</button>`);
                 zomatoApp.getDirections();
                 infoWindow.open(zomatoApp.map, marker);
