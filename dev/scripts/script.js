@@ -184,7 +184,7 @@ zomatoApp.displayMarker = function(results) {
         // Allow each marker to have an info window    
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-            // finding price symbols for price outcome from zomato API
+
               if(marker.price === 1){
                   var priceDollar = '$'
               } else if (marker.price === 2){
