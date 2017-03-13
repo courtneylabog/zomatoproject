@@ -25,7 +25,11 @@
 			<div class="tagline">Find restaurants based on rating</div>
 			<form id="formUserInfo">
 				<input class="input__textbox" id="location" type="text" size="50" placeholder="Enter Location" autocomplete="on" runat="server"/>
-				<input type="range" min="1" max="50" id="inputRating"> 
+				<input type="range" min="1" max="50" id="inputRating">
+				<div class="showRating">
+				<p>Rating:</p>
+				<p id="displayRatingVal"></p>
+				</div>
 				<input class="input__submit" type="submit" id="submitUserInfo" value="FIND ME FOOD">
 			</form>
 		</div>
