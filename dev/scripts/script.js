@@ -308,10 +308,11 @@ zomatoApp.getDirections = function(userlat, userlong, restolat, restolong){
             let distanceResult = data.routes[0].legs[0].distance.text;
             let durationResult = data.routes[0].legs[0].duration.text;
             console.log(directionResult, durationResult);
-            $('#renderedDirections').append(`<h2>You are ${durationResult} (${distanceResult}) away from your pick!</h2>`);
+            $('#renderedDirections').append(`<i class="fa fa-street-view" aria-hidden="true"></i><h2>You are ${durationResult} (${distanceResult}) away from your pick!</h2>`);
             $('#renderedDirections').append(`<h3>Follow these directions:</h3>`);
             directionResult.forEach(function(step){
-                $('#renderedDirections').append(`<p>${step.html_instructions}</p>`);
+                $('#renderedDirections').append(`
+<p><i class="fa fa-circle" aria-hidden="true"></i></i> ${step.html_instructions}</p>`);
             });
         });
     });

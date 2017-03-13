@@ -11,7 +11,7 @@ $noRatingColor: #7E8082;
 $briefColorMain: #3D3D3D;
 $briefColorSecondary:#B87562;
 $briefColorTert:#E9F2EA;
-$briefColorQuat:#FAF9F7;
+$briefColorQuat:#FFFCF5;
 
 $typogHeader: 'Open Sans', sans-serif;
 $typogContent: 'Roboto', sans-serif;
@@ -57,13 +57,14 @@ header{
 		margin-bottom: 10px;
 		text-transform: uppercase;
 		font-size: 5rem;
-		@media (max-width: 480px) {
+		@media (max-width: 480px){
 		font-size: 3rem;
 		}
 	}
 }
 
 h2 {
+	text-align: center;
 	font-size: 2.8rem;
 	margin:20px 0 20px 0;
 	font-family: $typogHeader;
@@ -237,23 +238,34 @@ i.fa-map-o{
 	font-size: 5rem;
 }
 
+i.fa-street-view{
+	text-align: center;
+	margin: 20px auto;
+	color: $briefColorSecondary;
+	font-size: 5rem;
+}
+
 .restaurantCard{
 	background-color: $briefColorQuat;
 	color: $briefColorMain;
 	font-family: $typogContent;
-	text-align: center;
+	box-shadow: 0px 0px 40px 2px rgba(115,115,115,0.2);
 	margin:0 0 0 20px;
 	font-size: 1.8rem;
 	display: flex;
 	flex-direction:column;
 	justify-content:center;
 	width:50%;
-	padding: 20px;
+	padding: 30px;
 	@media (max-width: 992px) {
 	margin:0 auto;
 	width:80%;
 	// order:1;
 	}
+}
+
+.restaurantCard p {
+	padding: 5px;
 }
 
 .restaurantCard i {
@@ -270,7 +282,7 @@ i.fa-hand-pointer-o{
 	display: flex;
 	justify-content:center;
 	align-items:center;
-	margin:auto;
+	margin:10px auto;
 	width: 90%;
 }
 
@@ -287,16 +299,18 @@ i.fa-hand-pointer-o{
 	}
 }
 
-// #infoRestaurant{
-// 	width:50%;
-// 	padding: 20px;
-// }
-
 //directions specific
 .directions {
 	background-color: $briefColorQuat;
+	box-shadow: 0px 0px 40px 2px rgba(115,115,115,0.2);
 	width:60%;
-	margin:50px auto 50px auto;
+	margin:60px auto 60px auto;
+}
+
+.directions .fa-circle {
+	margin-right: 10px;
+	font-size: 0.5px;
+	color: $briefColorSecondary;
 }
 
 .renderedDirections{
@@ -305,8 +319,8 @@ i.fa-hand-pointer-o{
 	justify-content:center;
 	margin: 10px auto;
 	background-color: $briefColorQuat;
-	font-family: $typogContent;
-	font-size: 2rem;
+	font-family: $typogHeader;
+	font-size: 2.2rem;
 	width:80%;
 	padding:0;
 }
