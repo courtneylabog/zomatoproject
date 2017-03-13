@@ -312,7 +312,7 @@ zomatoApp.getDirections = function(userlat, userlong, restolat, restolong){
             $('#renderedDirections').append(`<h3>Follow these directions:</h3>`);
             directionResult.forEach(function(step){
                 $('#renderedDirections').append(`
-<p><i class="fa fa-circle" aria-hidden="true"></i></i> ${step.html_instructions}</p>`);
+                <p><i class="fa fa-circle" aria-hidden="true"></i></i> ${step.html_instructions}</p>`);
             });
         });
     });
