@@ -81,6 +81,9 @@ h3{
 	margin:0px 0 20px 0;
 	text-align: center;
 	font-family: $typogHeader;
+	@media (max-width: 480px) {
+		font-size: 2.2rem;
+	}
 	@media (max-width: 320px) {
 		font-size: 2rem;
 	}
@@ -255,6 +258,9 @@ i.fa-map-o{
 	color: $briefColorSecondary;
 	font-size: 5rem;
 	@media (max-width: 320px) {
+	font-size: 4rem;
+	}
+	@media (max-width: 320px) {
 	font-size: 3rem;
 	}
 }
@@ -264,6 +270,9 @@ i.fa-street-view{
 	margin: 20px auto;
 	color: $briefColorSecondary;
 	font-size: 5rem;
+	@media (max-width: 480px) {
+	font-size: 4rem;
+	}
 	@media (max-width: 320px) {
 	font-size: 3rem;
 	}
@@ -285,6 +294,10 @@ i.fa-street-view{
 	margin:0 auto;
 	width:80%;
 	// order:1;
+	}
+	@media (max-width: 480px) {
+	margin:20px auto 0 auto;
+	width:90%;
 	}
 	@media (max-width: 320px) {
 	margin:20px auto 0 auto;
@@ -337,6 +350,9 @@ i.fa-hand-pointer-o{
 	box-shadow: 0px 0px 40px 2px rgba(115,115,115,0.2);
 	width:60%;
 	margin:60px auto 60px auto;
+	@media (max-width: 480px) {
+	width:95%;
+	}
 	@media (max-width: 320px) {
 		width:95%;
 	}
