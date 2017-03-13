@@ -11,6 +11,21 @@ zomatoApp.restoLongitude = "";
 // zomatoApp.tenRestaurants = [];
 // zomatoApp.markers = [];
 
+var inputVal = $('#inputRating');
+
+inputVal.bind('input', function(){
+    getRangeValue(inputVal);
+}).bind('change', function(){
+    getRangeValue(inputVal);   /* for IE */
+});
+
+function getRangeValue(e){
+    var value = $(e).val()/10;
+    $('#displayRatingVal').text(value);
+    $('#displayRatingVal').attr('data-value', value);
+    inputVal.attr('value', value);
+}
+
 //helper function that displays variables
 zomatoApp.displayResults = function(a){
     $(".userInput").empty();
