@@ -168,7 +168,7 @@ zomatoApp.displayMarker = function(results) {
             lng: zomatoApp.inputLongitude,
         },
         map: zomatoApp.map,
-        icon: '../../images/userMarker.svg'
+        icon:'/zomatosauce/images/userMarker.svg'
     });
     // Loop through our array of markers & place each one on the map  
     for(let i = 0; i < results.length; i++ ) {
@@ -185,7 +185,7 @@ zomatoApp.displayMarker = function(results) {
             },
             map: zomatoApp.map,
             title: results[i].restaurant.name,
-            icon:'../../images/mapMarkerIcon.svg',
+            icon:'/zomatosauce/images/mapMarkerIcon.svg',
             price:  results[i].restaurant.price_range,
             address: results[i].restaurant.location.address+" "+ results[i].restaurant.location.city,
             cuisine: results[i].restaurant.cuisines,
